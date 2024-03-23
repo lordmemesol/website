@@ -124,50 +124,8 @@
 
 <hr>
 
-		<hr>
-    <div id="comments"></div>
-    <textarea id="commentInput" class="comment-input" placeholder="Type your comment..." rows="3"></textarea>
-    <button id="postButton" class="post-button">Post</button>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const commentsContainer = document.getElementById('comments');
-            const commentInput = document.getElementById('commentInput');
-            const postButton = document.getElementById('postButton');
-            let commentCount = 0;
-
-            // Function to add a comment to the screen
-            function addComment(comment) {
-                const commentContainer = document.createElement('div');
-                commentContainer.classList.add('comment-container');
-                const timestamp = new Date().toUTCString();
-                commentContainer.innerHTML = `
-                    <div class="comment-header">${commentCount + 1}. ${timestamp}</div>
-                    <div class="comment">${comment}</div>
-                `;
-                commentsContainer.appendChild(commentContainer);
-                commentCount++;
-            }
-
-            // Function to handle posting a comment
-            function postComment() {
-                const comment = commentInput.value.trim();
-                if (comment !== '') {
-                    addComment(comment);
-                    commentInput.value = ''; // Clear the input field after posting
-                }
-            }
-
-            // Event listener for the "Post" button
-            postButton.addEventListener('click', postComment);
-        });
-    </script>
-
-<hr>
-
 		<p><b>DISCLAIMER:</b> LordMeme is a memecoin with no utility. Invest at your own risk.</p>
-
-	<p>© 2024 LordMeme. All rights reserved.</p>
+		<p>© 2024 LordMeme. All rights reserved.</p>
 </body>
 </html>
 
