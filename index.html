@@ -7,11 +7,57 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>LordMeme</title>
 		<meta name="LordMeme" content="index,follow">
+			<style>
+        .price-up {
+            color: green;
+        }
+
+        .price-down {
+            color: red;
+        }
+    </style>
 	</head>
 	<body>
 		<h1>LordMeme's Website</h1>
 		<p>LordMeme is a memecoin on Solana which I created using just my smartphone. All work is documented on X <a href="https://twitter.com/LordMemeSOL">@LordMemeSOL</a></p>
 		<p><b>TICKER:</b> LEME <i>($LEME)</i></p>
+		
+		<p id="bitcoinPrice">Loading...</p>
+
+    <script>
+        // Function to fetch Bitcoin price and update HTML
+        function fetchBitcoinPrice() {
+            fetch('https://api.coincap.io/v2/assets/bitcoin')
+                .then(response => response.json())
+                .then(data => {
+                    const bitcoinPriceElement = document.getElementById('bitcoinPrice');
+                    const price = parseFloat(data.data.priceUsd).toFixed(3); // Display three decimal places
+                    const lastPrice = parseFloat(bitcoinPriceElement.dataset.lastPrice) || 0;
+
+                    // Update HTML with Bitcoin price
+                    bitcoinPriceElement.textContent = `Current BTC Price: $${price}`;
+
+                    // Add arrow indicating price movement
+                    if (lastPrice < price) {
+                        bitcoinPriceElement.innerHTML += ' <span class="price-up">&#8593;</span>';
+                    } else if (lastPrice > price) {
+                        bitcoinPriceElement.innerHTML += ' <span class="price-down">&#8595;</span>';
+                    }
+
+                    // Store current price for next comparison
+                    bitcoinPriceElement.dataset.lastPrice = price;
+                })
+                .catch(error => {
+                    console.error('Error fetching Bitcoin price:', error);
+                    const bitcoinPriceElement = document.getElementById('bitcoinPrice');
+                    bitcoinPriceElement.textContent = 'Failed to fetch Bitcoin price';
+                });
+        }
+
+        // Fetch Bitcoin price initially and then every one second
+        fetchBitcoinPrice();
+        setInterval(fetchBitcoinPrice, 1000); // Update every zero second
+    </script>
 
 		<img src="https://pbs.twimg.com/media/GJPJPK6acAAv-ST?format=jpg&name=medium" alt="LordMeme's Paradise" style="width:90%; height:90%;">
 		
